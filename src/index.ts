@@ -1,4 +1,12 @@
 //npm start
+/*
+git init
+https://github.com/Javier10000/typescript-tutorial
+git remote add origin https://github.com/Javier10000/typescript-tutorial
+git add .
+git commit -m "Actualización de Cambios"
+git push
+*/
 
 import os = require("os");
 
@@ -246,32 +254,3 @@ let ep1:Empleado={
 // type Saludo = `hola ${string}`
   //  *let mensaje:Saludo = "hola"
   console.log(ep1.name)
-  //clases
-  class Animal{
-    //propiedades
-    nombre:string;
-    edad:number;
-    //constructor
-    constructor(nombre:string,edad:number){
-        this.nombre=nombre;
-        this.edad=edad;
-    }
-    //metodos
-    hacerSonido():void{
-        console.log("sonido generico")
-    }
-  }
-  let animal1 = new Animal("animalito",5)
-  console.log(animal1.nombre)
-  animal1.hacerSonido()
-  //herencia 
-  class Perro extends Animal{
-    raza:string;
-    constructor(nombre:string,edad:number,raza:string){
-        super(nombre,edad);
-        this.raza=raza;
-    }
-    hacerSonido():void{
-        console.log("guau guau")
-    }
-  }
