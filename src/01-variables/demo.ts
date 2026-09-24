@@ -17,5 +17,7 @@ if (miNombre=="Javier") {
   
   
 }
+console.log("esto se ha guardado en el mac? esto esta escrito en windows ");
+
 
 
