@@ -47,7 +47,6 @@ Entre los capítulos hay **tres bloques de ejercicios** (19 en total) que compar
 |---|---|---|
 | | [Cómo usar este proyecto](#cómo-usar-este-proyecto) | — |
 | | [Transpilar no es comprobar](#transpilar-no-es-comprobar) | — |
-| | [Depurar en Visual Studio Code](#depurar-en-visual-studio-code) | `.vscode/` |
 | 01 | [Declaración de variables](#01-declaración-de-variables) | `01-variables/` |
 | 02 | [Tipos de datos](#02-tipos-de-datos) | `02-tipos-datos/` |
 | 03 | [Operadores](#03-operadores) | `03-operadores/` |
@@ -68,6 +67,7 @@ Entre los capítulos hay **tres bloques de ejercicios** (19 en total) que compar
 | 16 | [Decoradores](#16-decoradores) | `16-decoradores/` |
 | | **[Ejercicios · Bloque 3](#ejercicios--bloque-3--hacia-angular)** (12-16) | `ejercicios/` |
 | | [De TypeScript a Angular 17](#de-typescript-a-angular-17) | — |
+| | [Depurar en Visual Studio Code](#depurar-en-visual-studio-code) | `.vscode/` |
 
 ---
 
@@ -259,165 +259,8 @@ Esa es la idea central del curso: el tipado es una red de seguridad para el prog
 
 > `npm run build` sirve para *mirar* el resultado. Para *ejecutar* el código usa siempre `npm run play`.
 
-## Depurar en Visual Studio Code
-
-Hasta ahora, para saber qué valía una variable has usado `console.log`. Funciona, pero obliga a modificar el código, volver a ejecutar y luego acordarse de borrar los rastros. El **depurador** hace lo mismo sin tocar el programa: lo congela en el punto que tú elijas y te deja mirar dentro.
-
-Es la misma herramienta que usarás en Angular, así que merece la pena aprenderla aquí, con programas pequeños.
-
-### Puesta en marcha
-
-No hay que configurar nada: el proyecto incluye la carpeta `.vscode/` con tres configuraciones ya preparadas.
-
-1. Abre **la carpeta del proyecto** en VS Code (`File > Open Folder...`). Esto es importante: si abres una carpeta de más arriba, las rutas no coinciden y no funcionará.
-2. Ejecuta `npm install` si no lo has hecho.
-3. Abre cualquier `demo.ts` y pulsa **F5**.
-
-> **Ojo**: F5 lanza el fichero con `tsx`, igual que `npm run play:fast`, así que
-> **no comprueba los tipos** (ver [Transpilar no es comprobar](#transpilar-no-es-comprobar)).
-> Es lo que se quiere al depurar —a veces hay que ejecutar código con errores de tipos para
-> ver qué hace—, pero recuerda pasar `npm run check` antes de dar algo por terminado.
-
-### Tu primera sesión de depuración
-
-Abre `src/07-funciones/demo.ts` y busca la función `sumar`:
-
-```ts
-function sumar(a: number, b: number): number {
-  return a + b;
-}
-```
-
-1. **Pon un punto de interrupción** (*breakpoint*): haz clic en el margen izquierdo, justo a la izquierda del número de línea del `return`. Aparece un círculo rojo.
-2. Pulsa **F5**. Si te pregunta, elige `TS: depurar el fichero abierto`.
-3. El programa arranca y **se detiene** en esa línea, que queda resaltada. Todavía no se ha ejecutado.
-
-Ahora fíjate en el panel de la izquierda:
-
-| Panel | Para qué sirve |
-|---|---|
-| **Variables** | Los valores vivos en este instante: verás `a: 10` y `b: 20` |
-| **Inspección** (*Watch*) | Expresiones que tú escribes y se recalculan en cada parada. Prueba a añadir `a * b` |
-| **Pila de llamadas** (*Call Stack*) | Quién ha llamado a quién para llegar hasta aquí. Haz clic en la línea de abajo y viajas al punto de la llamada |
-| **Puntos de interrupción** | La lista de todos los breakpoints, para activarlos o desactivarlos sin borrarlos |
-
-También puedes **pasar el ratón por encima de cualquier variable** del editor y VS Code te muestra su valor en un recuadro.
-
-### Los cuatro botones que hay que conocer
-
-La barra flotante de arriba controla el avance. Son las teclas que más vas a usar:
-
-| Tecla | Botón | Qué hace |
-|---|---|---|
-| **F10** | *Step Over* — Paso a paso por procedimientos | Ejecuta la línea entera y pasa a la siguiente. Si hay una llamada a función, la ejecuta sin entrar |
-| **F11** | *Step Into* — Paso a paso por instrucciones | **Entra dentro** de la función que se llama en esta línea |
-| **Mayús+F11** | *Step Out* — Paso a paso para salir | Termina la función actual y vuelve a quien la llamó |
-| **F5** | *Continue* — Continuar | Sigue a toda velocidad hasta el próximo breakpoint (o hasta el final) |
-| **Mayús+F5** | *Stop* | Corta la ejecución |
-
-> **Regla práctica**: usa **F10** para recorrer tu código y **F11** solo cuando sospeches que el fallo está *dentro* de la función que vas a llamar. Si entras por error, **Mayús+F11** te saca.
-
-### La Consola de depuración
-
-Mientras el programa está detenido, la pestaña **Consola de depuración** (*Debug Console*) es un intérprete vivo dentro de tu programa. Escribe ahí cualquier expresión y se evalúa con los valores de ese momento:
-
-```
-a + b
-frutas.filter(f => f.length > 6)
-typeof tipoDatoDesconocido
-```
-
-Incluso puedes **cambiar** valores (`a = 99`) y seguir ejecutando para ver qué pasa. Es la forma más rápida de comprobar una hipótesis sin editar y relanzar.
-
-> No confundas esta pestaña con la **Terminal**: la Terminal muestra lo que imprime tu `console.log`; la Consola de depuración es donde tú preguntas.
-
-### Breakpoints que no paran siempre
-
-Un breakpoint normal dentro de un bucle es insufrible: para en las 500 vueltas. VS Code tiene dos remedios. **Clic derecho en el margen → `Añadir punto de interrupción condicional...`**:
-
-- **Expresión condicional**: solo para cuando la expresión es cierta.
-
-  Abre `src/05-arrays/demo.ts`, ve al `forEach` de la línea 100 y pon la condición `valor === "platano"`. Solo se detendrá en esas dos vueltas.
-
-- **Punto de registro** (*Logpoint*): no detiene nada; imprime un mensaje en la Consola de depuración. Es un `console.log` que no ensucia el código y que puedes quitar sin tocar el fichero. Se escribe con las expresiones entre llaves:
-
-  ```
-  fruta {valor} con {valor.length} letras
-  ```
-
-- **Recuento de visitas** (*Hit Count*): para solo en la vuelta número N.
-
-Los logpoints se marcan con un rombo rojo en vez de un círculo, y son la mejor herramienta para los capítulos de arrays y bucles.
-
-### Depurar código asíncrono
-
-El capítulo 15 es donde el depurador más ayuda, porque el orden de ejecución no es el que se lee.
-
-Abre `src/15-async/demo.ts` y pon un breakpoint en la línea 38:
-
-```ts
-const mensaje = await esperar(200); // pausa aquí hasta que resuelva
-```
-
-Pulsa **F10**. Verás que el programa **no se queda bloqueado**: sigue con otras cosas y vuelve a esta línea cuando la promesa resuelve. En la **Pila de llamadas** aparecerán marcos etiquetados como *async*, que reconstruyen de dónde venía la llamada aunque el `await` haya cortado la ejecución por el medio.
-
-Ver esto una vez explica el `async`/`await` mejor que cualquier diagrama, y es exactamente lo que ocurrirá con las peticiones `HttpClient` de Angular.
-
-### Las tres configuraciones incluidas
-
-En la vista **Ejecutar y depurar** (`Ctrl+Mayús+D`) hay un desplegable arriba con estas opciones:
-
-| Configuración | Cuándo usarla |
-|---|---|
-| **TS: depurar el fichero abierto** | La de siempre. Depura el `.ts` que tengas delante |
-| **TS: elegir capítulo y depurar** | Muestra una lista con los 16 capítulos. Cómodo en clase, y no depende de qué fichero esté abierto |
-| **JS: depurar el transpilado de build/** | Compila con `npm run build` y depura el **JavaScript generado**. Sirve para comprobar que los breakpoints del `.ts` siguen funcionando sobre el `.js` gracias a los *source maps* |
-
-> **Limitación de la tercera**: no funciona con el capítulo `14-modulos` ni con el `ejercicio-17`.
-> El `tsconfig.json` usa `"moduleResolution": "bundler"` (como Angular), que permite escribir
-> `import { x } from "./y"` sin extensión. Node exige la extensión `.js` al ejecutar módulos ESM,
-> así que el `build/` de esos dos falla con `ERR_MODULE_NOT_FOUND`.
-> No es un error del proyecto: es justamente el trabajo que hace un *bundler* y que en Angular
-> resuelve la herramienta de construcción. Para esos dos casos usa cualquiera de las otras dos
-> configuraciones, que van por `tsx` y no tienen el problema.
-
-### La sentencia `debugger;`
-
-Si escribes `debugger;` en una línea, se comporta como un breakpoint puesto desde el código:
-
-```ts
-function aplicarIva(precio: number, iva: number = 21): number {
-  debugger; // el depurador se detendrá aquí
-  return precio * (1 + iva / 100);
-}
-```
-
-Es cómodo cuando no sabes en qué fichero va a entrar el programa. **Acuérdate de borrarlo**: a diferencia de un breakpoint, esto sí viaja en el código y se quedaría en la entrega.
-
-### Depurar lo que ya está corriendo
-
-Si estás trabajando con `npm run dev` y no quieres pararlo, activa el **Auto Attach**:
-
-1. `Ctrl+Mayús+P` → `Debug: Toggle Auto Attach` → **Smart**.
-2. Abre una terminal **nueva** (las ya abiertas no quedan enganchadas).
-3. Lanza `npm run play -- src/11-clases/demo.ts`.
-
-VS Code engancha el depurador solo, y tus breakpoints funcionan sin haber pulsado F5.
-
-### Cuando no funciona
-
-| Síntoma | Causa y solución |
-|---|---|
-| El breakpoint sale **gris y hueco** | No se ha podido asociar a código real. Suele ser porque abriste una carpeta que no es la raíz del proyecto, o el breakpoint está en una línea sin código (un comentario, una línea en blanco) |
-| `Cannot find package 'tsx'` | Falta `npm install` |
-| Para en ficheros raros de `node_modules` o de Node | Es lo que evita `skipFiles` en `launch.json`. Si aparece, comprueba que no has borrado esa línea |
-| El programa termina sin detenerse | El breakpoint está en código que nunca se ejecuta, o en una función que nadie llama |
-| Los valores no cuadran con el código | Estás depurando una versión antigua de `build/`. Vuelve a lanzar `npm run build`, o usa la configuración de `tsx` |
-| El editor marca errores distintos a `npm run check` | VS Code está usando su TypeScript y no el del proyecto. `Ctrl+Mayús+P` → `TypeScript: Select TypeScript Version` → **Use Workspace Version** (5.4.5) |
-
-### De aquí a Angular
-
-Todo lo de esta sección se traslada tal cual: breakpoints, F10/F11, Inspección, Pila de llamadas y Consola de depuración son idénticos. La única diferencia es que en Angular el código se ejecuta en el **navegador**, así que la configuración de `launch.json` usa `"type": "chrome"` en lugar de `"type": "node"` y apunta a `http://localhost:4200`. Los breakpoints se siguen poniendo en el `.ts`, y por el mismo motivo: los *source maps*.
+> Cuando termines los capítulos, al final del manual tienes una guía para
+> [depurar en Visual Studio Code](#depurar-en-visual-studio-code) con breakpoints.
 
 ## Estructura
 
@@ -3648,3 +3491,165 @@ ng new mi-primera-app
 ```
 
 Abre el `tsconfig.json` que genera Angular y compáralo con el de este proyecto: verás que son prácticamente el mismo.
+
+---
+
+# Depurar en Visual Studio Code
+
+Hasta ahora, para saber qué valía una variable has usado `console.log`. Funciona, pero obliga a modificar el código, volver a ejecutar y luego acordarse de borrar los rastros. El **depurador** hace lo mismo sin tocar el programa: lo congela en el punto que tú elijas y te deja mirar dentro.
+
+Es la misma herramienta que usarás en Angular, así que merece la pena aprenderla aquí, con programas pequeños.
+
+## Puesta en marcha
+
+No hay que configurar nada: el proyecto incluye la carpeta `.vscode/` con tres configuraciones ya preparadas.
+
+1. Abre **la carpeta del proyecto** en VS Code (`File > Open Folder...`). Esto es importante: si abres una carpeta de más arriba, las rutas no coinciden y no funcionará.
+2. Ejecuta `npm install` si no lo has hecho.
+3. Abre cualquier `demo.ts` y pulsa **F5**.
+
+> **Ojo**: F5 lanza el fichero con `tsx`, igual que `npm run play:fast`, así que
+> **no comprueba los tipos** (ver [Transpilar no es comprobar](#transpilar-no-es-comprobar)).
+> Es lo que se quiere al depurar —a veces hay que ejecutar código con errores de tipos para
+> ver qué hace—, pero recuerda pasar `npm run check` antes de dar algo por terminado.
+
+## Tu primera sesión de depuración
+
+Abre `src/07-funciones/demo.ts` y busca la función `sumar`:
+
+```ts
+function sumar(a: number, b: number): number {
+  return a + b;
+}
+```
+
+1. **Pon un punto de interrupción** (*breakpoint*): haz clic en el margen izquierdo, justo a la izquierda del número de línea del `return`. Aparece un círculo rojo.
+2. Pulsa **F5**. Si te pregunta, elige `TS: depurar el fichero abierto`.
+3. El programa arranca y **se detiene** en esa línea, que queda resaltada. Todavía no se ha ejecutado.
+
+Ahora fíjate en el panel de la izquierda:
+
+| Panel | Para qué sirve |
+|---|---|
+| **Variables** | Los valores vivos en este instante: verás `a: 10` y `b: 20` |
+| **Inspección** (*Watch*) | Expresiones que tú escribes y se recalculan en cada parada. Prueba a añadir `a * b` |
+| **Pila de llamadas** (*Call Stack*) | Quién ha llamado a quién para llegar hasta aquí. Haz clic en la línea de abajo y viajas al punto de la llamada |
+| **Puntos de interrupción** | La lista de todos los breakpoints, para activarlos o desactivarlos sin borrarlos |
+
+También puedes **pasar el ratón por encima de cualquier variable** del editor y VS Code te muestra su valor en un recuadro.
+
+## Los cuatro botones que hay que conocer
+
+La barra flotante de arriba controla el avance. Son las teclas que más vas a usar:
+
+| Tecla | Botón | Qué hace |
+|---|---|---|
+| **F10** | *Step Over* — Paso a paso por procedimientos | Ejecuta la línea entera y pasa a la siguiente. Si hay una llamada a función, la ejecuta sin entrar |
+| **F11** | *Step Into* — Paso a paso por instrucciones | **Entra dentro** de la función que se llama en esta línea |
+| **Mayús+F11** | *Step Out* — Paso a paso para salir | Termina la función actual y vuelve a quien la llamó |
+| **F5** | *Continue* — Continuar | Sigue a toda velocidad hasta el próximo breakpoint (o hasta el final) |
+| **Mayús+F5** | *Stop* | Corta la ejecución |
+
+> **Regla práctica**: usa **F10** para recorrer tu código y **F11** solo cuando sospeches que el fallo está *dentro* de la función que vas a llamar. Si entras por error, **Mayús+F11** te saca.
+
+## La Consola de depuración
+
+Mientras el programa está detenido, la pestaña **Consola de depuración** (*Debug Console*) es un intérprete vivo dentro de tu programa. Escribe ahí cualquier expresión y se evalúa con los valores de ese momento:
+
+```
+a + b
+frutas.filter(f => f.length > 6)
+typeof tipoDatoDesconocido
+```
+
+Incluso puedes **cambiar** valores (`a = 99`) y seguir ejecutando para ver qué pasa. Es la forma más rápida de comprobar una hipótesis sin editar y relanzar.
+
+> No confundas esta pestaña con la **Terminal**: la Terminal muestra lo que imprime tu `console.log`; la Consola de depuración es donde tú preguntas.
+
+## Breakpoints que no paran siempre
+
+Un breakpoint normal dentro de un bucle es insufrible: para en las 500 vueltas. VS Code tiene dos remedios. **Clic derecho en el margen → `Añadir punto de interrupción condicional...`**:
+
+- **Expresión condicional**: solo para cuando la expresión es cierta.
+
+  Abre `src/05-arrays/demo.ts`, ve al `forEach` de la línea 100 y pon la condición `valor === "platano"`. Solo se detendrá en esas dos vueltas.
+
+- **Punto de registro** (*Logpoint*): no detiene nada; imprime un mensaje en la Consola de depuración. Es un `console.log` que no ensucia el código y que puedes quitar sin tocar el fichero. Se escribe con las expresiones entre llaves:
+
+  ```
+  fruta {valor} con {valor.length} letras
+  ```
+
+- **Recuento de visitas** (*Hit Count*): para solo en la vuelta número N.
+
+Los logpoints se marcan con un rombo rojo en vez de un círculo, y son la mejor herramienta para los capítulos de arrays y bucles.
+
+## Depurar código asíncrono
+
+El capítulo 15 es donde el depurador más ayuda, porque el orden de ejecución no es el que se lee.
+
+Abre `src/15-async/demo.ts` y pon un breakpoint en la línea 38:
+
+```ts
+const mensaje = await esperar(200); // pausa aquí hasta que resuelva
+```
+
+Pulsa **F10**. Verás que el programa **no se queda bloqueado**: sigue con otras cosas y vuelve a esta línea cuando la promesa resuelve. En la **Pila de llamadas** aparecerán marcos etiquetados como *async*, que reconstruyen de dónde venía la llamada aunque el `await` haya cortado la ejecución por el medio.
+
+Ver esto una vez explica el `async`/`await` mejor que cualquier diagrama, y es exactamente lo que ocurrirá con las peticiones `HttpClient` de Angular.
+
+## Las tres configuraciones incluidas
+
+En la vista **Ejecutar y depurar** (`Ctrl+Mayús+D`) hay un desplegable arriba con estas opciones:
+
+| Configuración | Cuándo usarla |
+|---|---|
+| **TS: depurar el fichero abierto** | La de siempre. Depura el `.ts` que tengas delante |
+| **TS: elegir capítulo y depurar** | Muestra una lista con los 16 capítulos. Cómodo en clase, y no depende de qué fichero esté abierto |
+| **JS: depurar el transpilado de build/** | Compila con `npm run build` y depura el **JavaScript generado**. Sirve para comprobar que los breakpoints del `.ts` siguen funcionando sobre el `.js` gracias a los *source maps* |
+
+> **Limitación de la tercera**: no funciona con el capítulo `14-modulos` ni con el `ejercicio-17`.
+> El `tsconfig.json` usa `"moduleResolution": "bundler"` (como Angular), que permite escribir
+> `import { x } from "./y"` sin extensión. Node exige la extensión `.js` al ejecutar módulos ESM,
+> así que el `build/` de esos dos falla con `ERR_MODULE_NOT_FOUND`.
+> No es un error del proyecto: es justamente el trabajo que hace un *bundler* y que en Angular
+> resuelve la herramienta de construcción. Para esos dos casos usa cualquiera de las otras dos
+> configuraciones, que van por `tsx` y no tienen el problema.
+
+## La sentencia `debugger;`
+
+Si escribes `debugger;` en una línea, se comporta como un breakpoint puesto desde el código:
+
+```ts
+function aplicarIva(precio: number, iva: number = 21): number {
+  debugger; // el depurador se detendrá aquí
+  return precio * (1 + iva / 100);
+}
+```
+
+Es cómodo cuando no sabes en qué fichero va a entrar el programa. **Acuérdate de borrarlo**: a diferencia de un breakpoint, esto sí viaja en el código y se quedaría en la entrega.
+
+## Depurar lo que ya está corriendo
+
+Si estás trabajando con `npm run dev` y no quieres pararlo, activa el **Auto Attach**:
+
+1. `Ctrl+Mayús+P` → `Debug: Toggle Auto Attach` → **Smart**.
+2. Abre una terminal **nueva** (las ya abiertas no quedan enganchadas).
+3. Lanza `npm run play -- src/11-clases/demo.ts`.
+
+VS Code engancha el depurador solo, y tus breakpoints funcionan sin haber pulsado F5.
+
+## Cuando no funciona
+
+| Síntoma | Causa y solución |
+|---|---|
+| El breakpoint sale **gris y hueco** | No se ha podido asociar a código real. Suele ser porque abriste una carpeta que no es la raíz del proyecto, o el breakpoint está en una línea sin código (un comentario, una línea en blanco) |
+| `Cannot find package 'tsx'` | Falta `npm install` |
+| Para en ficheros raros de `node_modules` o de Node | Es lo que evita `skipFiles` en `launch.json`. Si aparece, comprueba que no has borrado esa línea |
+| El programa termina sin detenerse | El breakpoint está en código que nunca se ejecuta, o en una función que nadie llama |
+| Los valores no cuadran con el código | Estás depurando una versión antigua de `build/`. Vuelve a lanzar `npm run build`, o usa la configuración de `tsx` |
+| El editor marca errores distintos a `npm run check` | VS Code está usando su TypeScript y no el del proyecto. `Ctrl+Mayús+P` → `TypeScript: Select TypeScript Version` → **Use Workspace Version** (5.4.5) |
+
+## De aquí a Angular
+
+Todo lo de esta sección se traslada tal cual: breakpoints, F10/F11, Inspección, Pila de llamadas y Consola de depuración son idénticos. La única diferencia es que en Angular el código se ejecuta en el **navegador**, así que la configuración de `launch.json` usa `"type": "chrome"` en lugar de `"type": "node"` y apunta a `http://localhost:4200`. Los breakpoints se siguen poniendo en el `.ts`, y por el mismo motivo: los *source maps*.
