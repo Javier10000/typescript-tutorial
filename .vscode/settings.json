@@ -1,0 +1,11 @@
+{
+  // Obliga a VS Code a usar el TypeScript del proyecto (~5.4.5, el que admite
+  // Angular 17) en lugar de la versión que trae el editor incorporada.
+  // Si no, el editor puede aceptar sintaxis que luego Angular rechaza.
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+
+  // Al depurar, ejecutar "npm run play" en la terminal integrada engancha
+  // el depurador automáticamente si hay un breakpoint o un `debugger;`.
+  "debug.javascript.autoAttachFilter": "smart"
+}

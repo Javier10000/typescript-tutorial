@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      // La usa la configuración "JS: depurar el transpilado de build/".
+      "label": "build",
+      "type": "npm",
+      "script": "build",
+      "problemMatcher": ["$tsc"],
+      "group": "build"
+    },
+    {
+      // Ctrl+Mayús+B comprueba los tipos de todo el proyecto.
+      "label": "check",
+      "type": "npm",
+      "script": "check",
+      "problemMatcher": ["$tsc"],
+      "group": { "kind": "build", "isDefault": true }
+    }
+  ]
+}

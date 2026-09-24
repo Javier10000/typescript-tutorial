@@ -1,0 +1,74 @@
+{
+  // Configuraciones de depuración del tutorial de TypeScript.
+  // Se abren desde la vista "Ejecutar y depurar" (Ctrl+Mayús+D) o con F5.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // La que se usa el 90% de las veces: abre un .ts, pon un breakpoint y pulsa F5.
+      "name": "TS: depurar el fichero abierto",
+      "type": "node",
+      "request": "launch",
+      "program": "${file}",
+      // tsx transpila en memoria y genera sourcemaps, por eso el depurador
+      // para en las líneas del .ts y no en el JavaScript generado.
+      "runtimeArgs": ["--import", "tsx"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"]
+    },
+    {
+      // Igual que la anterior, pero preguntando el capítulo en una lista.
+      // Útil en clase para no depender de qué fichero esté abierto.
+      "name": "TS: elegir capítulo y depurar",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/${input:capitulo}/demo.ts",
+      "runtimeArgs": ["--import", "tsx"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"]
+    },
+    {
+      // Depura el JavaScript real de build/. Gracias a "sourceMap": true del
+      // tsconfig.json, los breakpoints se siguen poniendo en el .ts.
+      // Ojo: no sirve para el capítulo 14 ni el ejercicio 17 (ver README).
+      "name": "JS: depurar el transpilado de build/",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/${input:capitulo}/demo.js",
+      "preLaunchTask": "build",
+      "outFiles": ["${workspaceFolder}/build/**/*.js"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "capitulo",
+      "type": "pickString",
+      "description": "¿Qué capítulo quieres depurar?",
+      "default": "01-variables",
+      "options": [
+        "01-variables",
+        "02-tipos-datos",
+        "03-operadores",
+        "04-control-flujo",
+        "05-arrays",
+        "06-tuplas",
+        "07-funciones",
+        "08-objetos-types",
+        "09-enumerados",
+        "10-interfaces",
+        "11-clases",
+        "12-genericos",
+        "13-utility-types",
+        "14-modulos",
+        "15-async",
+        "16-decoradores"
+      ]
+    }
+  ]
+}

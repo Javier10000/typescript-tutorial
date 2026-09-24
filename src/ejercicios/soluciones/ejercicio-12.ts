@@ -1,0 +1,112 @@
+/**
+ * EJERCICIO 12 — Contratos con interfaces
+ * Capítulo 10 (interface, extends, propiedades función, index signature)
+ */
+
+// 1. Interfaz base
+interface Persona {
+  readonly id: number;
+  nombre: string;
+  email?: string;
+}
+
+// 2. Extender: un alumno ES una persona y además tiene sus datos
+interface Alumno extends Persona {
+  expediente: number;
+  ciclo: "DAM" | "DAW" | "ASIR";
+}
+
+// 3. Extender de varias a la vez
+interface Docente extends Persona {
+  departamento: string;
+}
+
+interface Tutor extends Docente {
+  grupo: string;
+}
+
+const alumna: Alumno = {
+  id: 1,
+  nombre: "Ana Serrano",
+  expediente: 1001,
+  ciclo: "DAM",
+};
+
+const tutor: Tutor = {
+  id: 50,
+  nombre: "Carlos Mendoza",
+  email: "jose@ies.es",
+  departamento: "Informática",
+  grupo: "DAM2",
+};
+
+console.log(`Alumna: ${alumna.nombre} (${alumna.ciclo}), expediente ${alumna.expediente}`);
+console.log(`Tutor:  ${tutor.nombre}, ${tutor.departamento}, grupo ${tutor.grupo}`);
+
+/**
+ * 4. Propiedades de tipo función: la interfaz describe QUÉ debe saber hacer
+ *    un objeto, no CÓMO lo hace.
+ */
+interface Calculadora {
+  media(notas: number[]): number;
+  aprobado: (nota: number) => boolean;
+}
+
+const calculadora: Calculadora = {
+  // los tipos se infieren del contrato: no hay que repetirlos
+  media: (notas) => notas.reduce((a, n) => a + n, 0) / notas.length,
+  aprobado: (nota) => nota >= 5,
+};
+
+console.log(`Media -> ${calculadora.media([7, 8, 9]).toFixed(2)}`);
+console.log(`¿4.5 aprueba? -> ${calculadora.aprobado(4.5)}`);
+
+/**
+ * 5. Index signature: claves que no se conocen de antemano.
+ *    Con "noPropertyAccessFromIndexSignature" (activo en este proyecto
+ *    y en Angular) hay que acceder con corchetes, no con punto.
+ */
+interface NotasPorModulo {
+  [modulo: string]: number;
+}
+
+const notas: NotasPorModulo = {
+  "Programación": 8.5,
+  "Bases de Datos": 7,
+  "Entornos de Desarrollo": 9,
+};
+
+console.log(`Programación -> ${notas["Programación"]}`);
+// console.log(notas.Programación);   // ❌ Error: viene de un index signature
+
+for (const modulo in notas) {
+  console.log(`  ${modulo}: ${notas[modulo]}`);
+}
+
+/**
+ * 6. Declaration merging: dos interfaces con el mismo nombre se FUSIONAN.
+ *    Los `type` no pueden hacer esto.
+ *
+ * ⚠️ OJO: la fusión afecta a TODO el fichero, no solo de aquí en adelante.
+ *    Si añadiésemos `fechaAlta: Date` a la interfaz Alumno de arriba,
+ *    el objeto `alumna` (declarado antes) dejaría de compilar.
+ *    Por eso aquí se usa otra interfaz distinta.
+ */
+interface Matricula {
+  curso: string;
+}
+
+interface Matricula {
+  confirmada: boolean;
+}
+
+// Matricula ahora exige las dos propiedades, vengan de donde vengan
+const matricula: Matricula = { curso: "2024/25", confirmada: true };
+console.log(`Matrícula ${matricula.curso} confirmada: ${matricula.confirmada}`);
+
+/**
+ * Esto sirve para ampliar tipos de una librería sin tocar su código.
+ * Con `type` sería imposible: daría "Duplicate identifier".
+ */
+
+export {};
