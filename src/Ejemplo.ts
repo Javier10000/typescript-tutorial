@@ -41,6 +41,9 @@ console.log(cadenasDeTexto)
 //quita del principio y muestra la posicion 0 del array
 console.log("devuelve del principio --> ", cadenasDeTexto.shift())
 console.log(cadenasDeTexto)
+//devuelve la ultima posicion del array 
+console.log(cadenasDeTexto.length-1);
+
 
 
 

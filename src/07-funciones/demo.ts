@@ -116,3 +116,6 @@ class Contador {
 console.log("arrow y this ->", new Contador().incrementarBien());
 
 export {};
+let notas = [1,2,3,4,5,6,7,8,9,9,9,9,2,3,4,5,1]
+let numeroAprobados = notas.filter ((valor:number) => {return valor>=5}).length;
+console.log(numeroAprobados);
