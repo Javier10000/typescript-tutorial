@@ -1,3 +1,5 @@
+import { log } from "console";
+
 /**
  * funcion con parametro
  */
@@ -22,6 +24,9 @@ function presentacion(quien:string, anios:number):string{
 }
 console.log(presentacion(nombre,edad)); //funcion que se pone por parametros la edad y el nombre y lo devuelve luego en la funcion 
 
+//funciones anonimas 
+
+
 //copiar de un array a otro
 const numeros: number[][] = [[1, 2, 3, 4, 5, 6, 7, 8, 9]];
 const copiaNumero: number[][] = [...numeros];
@@ -43,6 +48,27 @@ console.log("devuelve del principio --> ", cadenasDeTexto.shift())
 console.log(cadenasDeTexto)
 //devuelve la ultima posicion del array 
 console.log(cadenasDeTexto.length-1);
+
+//funciones anonimas
+const sumar = function(a:number, b:number):number{
+    return a + b;
+}
+console.log(sumar(1,2));
+
+//funcion flecha 
+
+const restaOsuma = (a:number , b:number):number => {
+if(a > b){
+    return a+b;
+}else{
+    return a-b
+}
+} 
+
+console.log(restaOsuma(4,8));
+let edadd:number = 13;
+edadd = 12;
+
 
 
 
