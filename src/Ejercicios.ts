@@ -77,7 +77,7 @@ if (typeof numero === "string") {
 
 }
 console.log("------------------------------------------------------------------------");
-let arrayNotas = [2, 3, 4, 5.5, 10, 3, 5,11];
+let arrayNotas = [2, 3, 4, 5.5, 10, 3, 5, 11];
 console.log("\x1b[31m\x1b[1mEjercicio 3\x1b[0m");
 
 function calificar(nota: number) {
@@ -94,17 +94,17 @@ let mes: number = 8;
 function convocatoria(mes: number) {
     switch (mes) {
         case 3:
-            return console.log("mes: ",mes, " --> Convocatoria Parcial");
+            return console.log("mes: ", mes, " --> Convocatoria Parcial");
             break;
         case 6:
-            return console.log("mes: ",mes, " --> Convocatoria ordinaria");
+            return console.log("mes: ", mes, " --> Convocatoria ordinaria");
             break;
         case 9:
-            return console.log("mes: ",mes, " --> Convocatoria extraordinaria");
+            return console.log("mes: ", mes, " --> Convocatoria extraordinaria");
             break;
 
         default:
-            return console.log("mes: ",mes, " --> sin convocatorias para este mes");
+            return console.log("mes: ", mes, " --> sin convocatorias para este mes");
 
             break;
     }
@@ -119,46 +119,203 @@ convocatoria(mes)
 let aprobados = 0;
 let suspensos = 0;
 for (let index = 0; index < arrayNotas.length; index++) {
-    if (arrayNotas[index] >= 5 && arrayNotas[index] <=10) {
+    if (arrayNotas[index] >= 5 && arrayNotas[index] <= 10) {
         aprobados++
-    }else if (arrayNotas[index] >= 0 && arrayNotas[index] <5) {
+    } else if (arrayNotas[index] >= 0 && arrayNotas[index] < 5) {
         suspensos++;
     }
-    
+
 }
-console.log("suspensos --> ",suspensos);
-console.log("aprobados --> ",aprobados);
+console.log("suspensos --> ", suspensos);
+console.log("aprobados --> ", aprobados);
 for (let index = 0; index < arrayNotas.length; index++) {
     if (arrayNotas[index] == 10) {
-        console.log("el diez esta en la posicion: [",index,"]");
+        console.log("el diez esta en la posicion: [", index, "]");
         break;
-        
+
     }
 }
 console.log("------------------------------------------------------------------------");
 console.log("\x1b[31m\x1b[1mEjercicio 4\x1b[0m");
-let arrayDeNombres:string[] = ["Ana","Luis","Marta"]
+let arrayDeNombres: string[] = ["Ana", "Luis", "Marta"]
 
 
-console.log("inicial --> ",arrayDeNombres);
-arrayDeNombres.push("Pedro","Lucia")
-console.log("tras --> ",arrayDeNombres);
+console.log("inicial --> ", arrayDeNombres);
+arrayDeNombres.push("Pedro", "Lucia")
+console.log("tras --> ", arrayDeNombres);
 arrayDeNombres.unshift("Carlos")
-console.log("tras traslado --> ",arrayDeNombres);
+console.log("tras traslado --> ", arrayDeNombres);
 arrayDeNombres.shift();
-console.log("baja de carlos --> ",arrayDeNombres);
-console.log("¿Esta Marta? --> ",arrayDeNombres.includes("Marta"));
-console.log("¿Esta Sofia? --> ",arrayDeNombres.includes("Sofia"));
-console.log("Posicion de Lucia --> ",arrayDeNombres.indexOf("Lucia"));
-console.log("Posicion de Sofia --> ",arrayDeNombres.indexOf("Sofia"));
-let arrayOrdenado = [...arrayDeNombres].sort((a,b) => a.localeCompare(b))
-console.log("Alfabetico --> ",arrayOrdenado);
-console.log("Ordenado como el original --> ",arrayDeNombres);
-console.log("Para el Acta --> ",arrayDeNombres.map(item => item.toUpperCase()));
+console.log("baja de carlos --> ", arrayDeNombres);
+console.log("¿Esta Marta? --> ", arrayDeNombres.includes("Marta"));
+console.log("¿Esta Sofia? --> ", arrayDeNombres.includes("Sofia"));
+console.log("Posicion de Lucia --> ", arrayDeNombres.indexOf("Lucia"));
+console.log("Posicion de Sofia --> ", arrayDeNombres.indexOf("Sofia"));
+let arrayOrdenado = [...arrayDeNombres].sort((a, b) => a.localeCompare(b))
+console.log("Alfabetico --> ", arrayOrdenado);
+console.log("Ordenado como el original --> ", arrayDeNombres);
+console.log("Para el Acta --> ", arrayDeNombres.map(item => item.toUpperCase()));
+console.log("nombre > 4 letras ->", arrayDeNombres.filter((nombre: string) => nombre.length > 4));
+console.log("Listado: ", arrayDeNombres.join(", "));
+console.log("------------------------------------------------------------------------");
+console.log("\x1b[31m\x1b[1mEjercicio 5\x1b[0m");
+//let arrayNotas = [2, 3, 4, 5.5, 10, 3, 5, 11];
+function media() {
+    let cont = 0;
+    let suma = 0;
+    for (let index = 0; index < arrayNotas.length; index++) {
+        cont++;
+        suma += arrayNotas[index];
 
+    }
+    return suma / cont;
+}
+function maximaMinima() {
+    let alta = 0;
+    let baja = 0;
+    for (let index = 0; index < arrayNotas.length; index++) {
+        if (arrayNotas[index] > alta) {
+            alta = arrayNotas[index]
+
+        }
+    }
+
+    baja = alta;
+
+    for (let index = 0; index < arrayNotas.length; index++) {
+        if (arrayNotas[index] <= baja) {
+            baja = arrayNotas[index]
+
+
+
+        }
+
+
+    }
+    return "Maxima: " + alta + " | Minima: " + baja;
+}
+function calificacion() {
+    let aprobados = 0;
+    let suspensos = 0;
+
+    for (let index = 0; index < arrayNotas.length; index++) {
+        if (arrayNotas[index] >= 5) {
+            aprobados++;
+        } else {
+            suspensos++;
+        }
+
+    }
+    return "Aprobados: " + aprobados + " | Suspensos: " + suspensos
+
+}
+function porcentajesAprobados() {
+    let aprobados = 0;
+    let pocentage: number;
+    for (let index = 0; index < arrayNotas.length; index++) {
+        if (arrayNotas[index] >= 5) {
+            aprobados++;
+
+        }
+
+    }
+    pocentage = aprobados * 100 / arrayNotas.length
+    return "porcentage de aprobados: " + pocentage.toFixed(1) + "%"
+
+}
+function recuentoNotas() {
+    let sobresaliente = 0;
+    let notable = 0;
+    let bien = 0;
+    let suficiente = 0;
+    let suspen = 0;
+    let notasInv = 0;
+    for (let index = 0; index < arrayNotas.length; index++) {
+        if (arrayNotas[index] <= 10 && arrayNotas[index] >= 9) {
+            sobresaliente++
+
+        } else if (arrayNotas[index] < 9 && arrayNotas[index] >= 7) {
+            notable++;
+        } else if (arrayNotas[index] < 7 && arrayNotas[index] >= 6) {
+            bien++;
+        } else if (arrayNotas[index] < 6 && arrayNotas[index] >= 5) {
+            suficiente++;
+        } else if (arrayNotas[index] < 5 && arrayNotas[index] >= 0) {
+            suspen++;
+        } else {
+            notasInv++;
+
+        }
+
+
+
+    }
+    return "sobresaliente " + sobresaliente + " notable " + notable + " bien " + bien + " suficiente " + suficiente + " insuficiente " + suspen + " notas invalidas " + notasInv
+}
+console.log(maximaMinima());
+console.log(calificacion());
+console.log(porcentajesAprobados());
+console.log("con +0.5 ->", arrayNotas.map((numero: number) => numero += 0.5));
+console.log("original -> ", arrayNotas);
+console.log("recuento -> ", recuentoNotas())
+console.log("------------------------------------------------------------------------");
+console.log("\x1b[31m\x1b[1mEjercicio 6\x1b[0m");
+type ficha = [nombre: string, nota: number,recuperacion?:number];
+const fichaAna: ficha = ["ana", 8.5];
+const fichaLuis: ficha = ["Luis", 4];
+const fichaMarta: ficha = ["Marta", 9.25];
+const fichaPedro: ficha = ["Pedro", 6];
+console.log(resumenFichas());
+
+
+function resumenFichas() {
+    let aprobados = 0;
+    let suspensos = 0;
+    let media = 0;
+    if (fichaAna[1] < 5) {
+        console.log(" Ana", fichaAna[1], " --> No Apto");
+        suspensos++;
+        media += fichaAna[1];
+    } else {
+        console.log(" Ana", fichaAna[1], " --> Apto");
+        media += fichaAna[1];
+        aprobados++;
+    }
+    if (fichaLuis[1] < 5) {
+        console.log(" Luis", fichaLuis[1], " --> No Apto");
+        media += fichaLuis[1];
+        suspensos++;
+    } else {
+        console.log("Luis", fichaLuis[1], " --> Apto");
+        media += fichaLuis[1];
+        aprobados++;
+    }
+    if (fichaMarta[1] < 5) {
+        console.log(" Marta", fichaMarta[1], " --> No Apto");
+        media += fichaMarta[1];
+        suspensos++;
+    } else {
+        console.log(" Marta", fichaMarta[1], " --> Apto");
+        media += fichaMarta[1];
+
+        aprobados++;
+    }
+    if (fichaPedro[1] < 5) {
+        console.log(" Pedro", fichaPedro[1], " --> No Apto");
+        media += fichaPedro[1];
+        suspensos++;
+    } else {
+        console.log(" Pedro ", fichaPedro[1], " --> Apto");
+        media += fichaPedro[1];
+        aprobados++;
+    }
+    let mediaResult = (media / (aprobados+suspensos))
+    console.log("media ",mediaResult.toFixed(2),"| Aprobados ",aprobados," | Suspensos", suspensos);
+
+    
+
+
+}
 
 
 console.log("------------------------------------------------------------------------");
-
-
-
