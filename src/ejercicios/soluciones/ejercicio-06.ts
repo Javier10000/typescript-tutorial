@@ -3,6 +3,8 @@
  * Capítulo 06 (tuplas y desestructuración)
  */
 
+import { log } from "console";
+
 // 1. Una ficha: [nombre, nota]. Longitud fija, tipo por posición.
 type Ficha = [nombre: string, nota: number];
 
@@ -56,3 +58,11 @@ let segundo = "Luis";
 console.log(`Intercambiados -> ${primero}, ${segundo}`);
 
 export {};
+let cincoDesconocido:unknown = "5"
+let cinco:number = 5;
+console.log(cinco == (cincoDesconocido as number));
+console.log();
+
+
+
+

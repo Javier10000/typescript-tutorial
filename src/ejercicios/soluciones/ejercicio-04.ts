@@ -3,6 +3,8 @@
  * Capítulo 05 (arrays: añadir, quitar, buscar)
  */
 
+import { log } from "console";
+
 const clase: string[] = ["Ana", "Luis", "Marta"];
 console.log("Inicial      ->", clase);
 
@@ -42,5 +44,9 @@ console.log("Nombre > 4 letras ->", clase.filter((nombre) => nombre.length > 4))
 
 // 9. Una sola cadena separada por comas
 console.log("Listado: " + clase.join(", "));
+console.log(alfabetico.length);
 
-export {};
+
+
+
+

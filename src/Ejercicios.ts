@@ -260,65 +260,84 @@ console.log("original -> ", arrayNotas);
 console.log("recuento -> ", recuentoNotas())
 console.log("------------------------------------------------------------------------");
 console.log("\x1b[31m\x1b[1mEjercicio 6\x1b[0m");
-type ficha = [nombre: string, nota: number,recuperacion?:number];
-const fichaAna: ficha = ["ana", 8.5];
-const fichaLuis: ficha = ["Luis", 4];
-const fichaMarta: ficha = ["Marta", 9.25];
-const fichaPedro: ficha = ["Pedro", 6];
+type ficha = [nombre: string, nota: number];
+const fichas:ficha[] = [
+    ["ana",8.5],
+    ["luis",4],
+    ["marta",9.25],
+    ["Pedro",6],
+
+]
 //desectructuaracion
+fichas.forEach(([nombre,nota]) => {
+    //padEnd alinea en 6 caracteres
+    console.log(nombre.padEnd(6) + " "+nota +  " -> " + (nota>=5 ? "Apto" : "No Apto"));
+    
+    
+});
+type FichaConRecuperacion = [nombre: string, nota: number, recuperacion?: number];
+const conRecu: FichaConRecuperacion[] = [
+  ["Luis", 4, 6.5],
+  ["Ana", 8.5],
+];
+
+conRecu.forEach(([nombre, nota, recuperacion]) => {
+  const definitiva = recuperacion ?? nota;
+  console.log(`${nombre}: ordinaria ${nota}, definitiva ${definitiva}`);
+});
 
 
-console.log(resumenFichas());
 
 
-function resumenFichas() {
-    let aprobados = 0;
-    let suspensos = 0;
-    let media = 0;
-    if (fichaAna[1] < 5) {
-        console.log(" Ana", fichaAna[1], " --> No Apto");
-        suspensos++;
-        media += fichaAna[1];
-    } else {
-        console.log(" Ana", fichaAna[1], " --> Apto");
-        media += fichaAna[1];
-        aprobados++;
-    }
-    if (fichaLuis[1] < 5) {
-        console.log(" Luis", fichaLuis[1], " --> No Apto");
-        media += fichaLuis[1];
-        suspensos++;
-    } else {
-        console.log("Luis", fichaLuis[1], " --> Apto");
-        media += fichaLuis[1];
-        aprobados++;
-    }
-    if (fichaMarta[1] < 5) {
-        console.log(" Marta", fichaMarta[1], " --> No Apto");
-        media += fichaMarta[1];
-        suspensos++;
-    } else {
-        console.log(" Marta", fichaMarta[1], " --> Apto");
-        media += fichaMarta[1];
 
-        aprobados++;
-    }
-    if (fichaPedro[1] < 5) {
-        console.log(" Pedro", fichaPedro[1], " --> No Apto");
-        media += fichaPedro[1];
-        suspensos++;
-    } else {
-        console.log(" Pedro ", fichaPedro[1], " --> Apto");
-        media += fichaPedro[1];
-        aprobados++;
-    }
-    let mediaResult = (media / (aprobados+suspensos))
-    console.log("media ",mediaResult.toFixed(2),"| Aprobados ",aprobados," | Suspensos", suspensos);
 
     
 
 
-}
+
 
 
 console.log("------------------------------------------------------------------------");
+let jose:string = "jajaja"
+let edad:number = 12
+function presentar (quien:string,edad:number){
+    log(`soy ${quien} y tengo ${edad} años`);
+
+}
+presentar(jose,edad)
+let arrayDeNombress:string[] = ["javier","verdugo","mena","juan","francisco","mena"]
+console.log(arrayDeNombress.slice(0,2));
+
+const numerosss:number[] = [1,2,3];
+const [primerss,segundso] = numerosss;
+console.log(primerss);
+let frutis:string[] = ["caca","melon","sandia"];
+for (const fruta of frutis) {
+    console.log(fruta);
+    
+    
+}
+for (const i in frutis) {
+    console.log(i);
+    
+    
+}
+let array2d:number[][]= [[1,2,3,4,5,6,7,8,89,9,7,6,5,54,45,5,45]];
+for (let index = 0; index < array2d.length; index++) {
+   let array = array2d[index]
+   console.log(array);
+   
+    
+}
+let tuplaEdad: [string, number]  = ["elena",45]
+
+
+let [nombreDePersona,edadPersona] = tuplaEdad; 
+console.log(nombreDePersona);
+const arrayNombres = ["Jose", "Juan", "Pedro", "Manuel"];
+
+const printElemento = (elemento: string): void => console.log(elemento);
+arrayNombres.forEach(printElemento);
+
+
+
