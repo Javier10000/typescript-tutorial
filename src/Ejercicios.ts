@@ -265,6 +265,9 @@ const fichaAna: ficha = ["ana", 8.5];
 const fichaLuis: ficha = ["Luis", 4];
 const fichaMarta: ficha = ["Marta", 9.25];
 const fichaPedro: ficha = ["Pedro", 6];
+//desectructuaracion
+
+
 console.log(resumenFichas());
 
 
