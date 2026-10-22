@@ -1,3 +1,5 @@
+import { log } from "console";
+
 console.log("Ejercicio 1 Filtrado de Productos en Stock");
 
 type Producto = { nombre: string; precio: number; stock: number };
@@ -12,18 +14,32 @@ let productos: Producto[] = [
     { nombre: "silla", precio: 17, stock: -1 }
 ];
 
-// Si quieres que devuelva los objetos Producto:
-const filtrarProductos = (lista: Producto[], precioMaximo?: number): Producto[] => {
+let funcionFiltrado = (lista: Producto[], numeroMaximo?: number): Producto[] => {
     return lista.filter((producto) => {
-        if (precioMaximo !== undefined) {
-            // Devuelve true si cumple el stock y es menor que el precio máximo
-            return producto.stock > 0 && producto.precio < precioMaximo;
-        } else {
-            // Si no hay precio máximo, solo evalúa el stock
-            return producto.stock > 0;
-        }
-    });
-};
+        if (numeroMaximo !== undefined) {
+            return producto.stock > 0 && producto.precio < numeroMaximo;
 
-let arrayNuevo: Producto[] = filtrarProductos(productos, 15);
-console.log(arrayNuevo);
+        } else {
+            return producto.stock > 0
+        }
+
+    })
+
+
+
+}
+let arrayAux: Producto[] = funcionFiltrado(productos,34)
+console.log(arrayAux);
+
+function nombre(...notas: number[]) {
+    let condicion = notas.filter((nota: number) => nota <= 10 && nota > -1)
+    const suma = condicion.reduce((acc: number, valor: number) => acc += valor, 0)
+    let media = suma / condicion.length;
+    let maximo = Math.max(...condicion);
+    let minimo = Math.min(...condicion);
+    let aprobados = condicion.filter(a => a >= 5).length;
+    return {
+        media, maximo, minimo, aprobados
+    }
+}
+console.log(nombre(1, 2, 3, 4, 5, 6, 11));
