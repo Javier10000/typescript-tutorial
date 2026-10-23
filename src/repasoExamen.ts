@@ -43,3 +43,4 @@ function nombre(...notas: number[]) {
     }
 }
 console.log(nombre(1, 2, 3, 4, 5, 6, 11));
+
