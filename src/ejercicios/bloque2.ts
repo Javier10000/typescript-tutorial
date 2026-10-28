@@ -55,10 +55,7 @@ let col1:Colegio = {
     id:"12345L",
     cp:"41530",
     ubi:"Moron de la frontera",
-<<<<<<< HEAD
     gmail:"javier@gmail.es",
-    resenna:1
-=======
     resenna:1,
     saludo:() => {console.log("hola "+col1.nombre1)}
 }
@@ -123,7 +120,7 @@ enum DiaSemanaDefinidos{
     Viernes="d5",
     Sabado="d6",
     Domingo="d7"
->>>>>>> 903de4a01c39cabe7451e17b4f1bda16ad771815
+
 }
 
 /**
@@ -133,16 +130,3 @@ console.log(DiaSemanaDefinidos.Lunes);
 /**
  * no se puede acceder a lunes mediante su valor (d1) --> console.log(DiaSemanaDefinidos["d1"]);
  */
-
-
-
-
-
-
-
-
-
-
-
-
-
