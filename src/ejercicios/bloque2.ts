@@ -52,9 +52,9 @@ type Colegio = { nombre:string, id:string , cp:string , gmail: Gmail,ubi:string 
 let col1:Colegio = {
     nombre:"Reina Sofia",
     id:"12345L",
-    gmail:"javier@gmail.es",
     cp:"41530",
     ubi:"Moron de la frontera",
+    gmail:"javier@gmail.es",
     resenna:1
 }
 
