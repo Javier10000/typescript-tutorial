@@ -1,3 +1,4 @@
+import { Interface } from "readline";
 
 // Creamos objetos
 type Direccion = { calle: string, numero: number }
@@ -120,9 +121,7 @@ enum DiaSemanaDefinidos{
     Viernes="d5",
     Sabado="d6",
     Domingo="d7"
-
 }
-
 /**
  * console.log(DiaSemanaDefinidos.Lunes) retorna el valor definido en el parametro
  */
@@ -130,3 +129,84 @@ console.log(DiaSemanaDefinidos.Lunes);
 /**
  * no se puede acceder a lunes mediante su valor (d1) --> console.log(DiaSemanaDefinidos["d1"]);
  */
+function muestraDia(d:string){
+    switch (d) {
+        case DiaSemanaDefinidos.Lunes:
+            console.log(`es ${DiaSemana[0]}`);
+            
+            break;
+            case DiaSemanaDefinidos.Martes:
+            console.log(`es ${DiaSemana[1]}`);
+            
+            break;
+            case DiaSemanaDefinidos.Miercoles:
+            console.log(`es ${DiaSemana[2]}`);
+            
+            break;
+            case DiaSemanaDefinidos.Jueves:
+            console.log(`es ${DiaSemana[3]}`);
+            
+            break;
+            case DiaSemanaDefinidos.Viernes:
+            console.log(`es ${DiaSemana[4]}`);
+            
+            break;
+            case DiaSemanaDefinidos.Sabado:
+            console.log(`es ${DiaSemana[5]}`);
+            
+            break;
+            case DiaSemanaDefinidos.Domingo:
+            console.log(`es ${DiaSemana[6]}`);
+            
+            break;
+    
+        default:
+            break;
+    }
+
+
+}
+/**
+ * muostramos de 1 que es el valor del caso para que nos muestre su return
+ */
+muestraDia("d2")
+
+enum EstadoPedidos {
+    Pendiente,
+    EnProceso,
+    EnPreparacion,
+    EnReparto,
+    Entregado
+}
+type statusPedido = "PENDIENTE" | "ENPROCESO"| "ENPREPARACION";
+
+let estado:statusPedido = "ENPROCESO"
+
+console.log(estado);
+/**
+ * Interfaces
+ */
+
+interface Usuario {
+    readonly id:number, //no se puede modificar
+    nombre:string,
+    email:Gmail
+}
+let u1:Usuario = {id:1,nombre:"fernando",email:"javier@gmail.com"}
+//no se puede hacer ya que la propiedad es readOnly --> u1.id = 1
+
+type Cargo = "Informatico" | "Administrador" | "Colegiado";
+/**
+ * cuando creamos dos interfaces iguales no se tapan se suman sus atributos 
+ */
+interface Empleado extends Usuario {
+    readonly idEmpleado:number,
+    cargo:Cargo
+} 
+interface Empleado extends Usuario{
+    resenna:Resenna
+}
+// al eredar de usuario nos da error porque tenemos que tener los complementos del usuario --> let e1:Empleado = {idEmpleado:1,cargo:"Informatico"}
+let e1:Empleado = {nombre:"alberto",email:"albertocu@gmail.com",id:3,idEmpleado:1,cargo:"Informatico",resenna:1}
+console.log(e1);
+
