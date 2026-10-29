@@ -17,6 +17,15 @@ let p1: Persona = {
     }
 
 }
+let p: Persona = {
+    nombre: "Pepe",
+    apellidos: "Verdugo",
+    direccion: {
+        calle: "Alamos",
+        numero: 3,
+    }
+
+}
 console.log(p1.nombre + " " + p1.apellidos + " vive en la calle: " + p1.direccion.calle + " numero " + p1.direccion.numero + "º");
 /**
  * definimos objeto direccion
@@ -61,7 +70,7 @@ let col1:Colegio = {
     saludo:() => {console.log("hola "+col1.nombre1)}
 }
 let col2:Colegio = {
-     nombre1:"PerroSanxe",
+    nombre1:"PerroSanxe",
     id:"12345L",
     gmail:"javier@gmail.es",
     cp:"41530",
@@ -73,7 +82,7 @@ let col2:Colegio = {
 let {nombre1,id,gmail,cp,ubi,resenna} = col1;
 // let {nombre1,id,gmail,cp,ubi,resenna} = col2; no podemos desectructurar dos objetos preguntar jose 
 console.log(nombre1);
-console.log(col1.saludo());
+
 //al mostrar un objeto que teine una funcion no se muestr la funcion a no ser que llames solo a ella --> col1.saludo() 
 let col3:Colegio = {
     nombre1:"jose",
@@ -82,9 +91,10 @@ let col3:Colegio = {
     gmail:"javier@gmail.com",
     resenna:4,
     ubi:"moron",
-    saludo:() => {console.log("hola "+col2.nombre1)}
+    saludo:() => {console.log("hola ",nombre1)}
 
 };
+
 /**
  * declaracion de una tupla 
  */
@@ -192,9 +202,16 @@ interface Usuario {
     nombre:string,
     email:Gmail,
     edad:number,
-    esMayorEdad?:(edad:number,nombre:string)=>void
+    esMayorEdad:(edad:number)=>void 
 }
-let u1:Usuario = {id:1,nombre:"fernando",email:"javier@gmail.com",edad:16}
+let u1:Usuario = {
+    id:1,
+    nombre:"fernando",
+    email:"javier@gmail.com",
+    edad:16, 
+    esMayorEdad:(edad:number) => 
+        {console.log(u1.edad >= 18 ? "es Mayor de edad":"es menor")}
+}
 //no se puede hacer ya que la propiedad es readOnly --> u1.id = 1
 
 type Cargo = "Informatico" | "Administrador" | "Colegiado";
@@ -209,8 +226,8 @@ interface Empleado extends Usuario{
     resenna:Resenna
 }
 // al eredar de usuario nos da error porque tenemos que tener los complementos del usuario --> let e1:Empleado = {idEmpleado:1,cargo:"Informatico"}
-let e1:Empleado = {nombre:"alberto",email:"albertocu@gmail.com",id:3,idEmpleado:1,cargo:"Informatico",resenna:1,edad:16,esMayorEdad:()=>{console.log(`${e1.edad>=18?'es mayor de edad': 'es menor de edad'}`)}}
-console.log(e1.esMayorEdad);
+let e1:Empleado = {nombre:"alberto",email:"albertocu@gmail.com",id:3,idEmpleado:1,cargo:"Informatico",resenna:1,edad:16,esMayorEdad:()=>{console.log(e1.edad>=18?'es mayor de edad': 'es menor de edad')}}
+
 
 class Coche {
     matricula:string;
@@ -218,7 +235,7 @@ class Coche {
     modelo:string;
     anno:number;
     kilometraje:number;
-    repro:boolean;
+    repro:boolean
 
     constructor( matricula:string, marca:string,modelo:string, anno:number,kilometraje:number,repro:boolean) {
         this.matricula = matricula;
@@ -227,6 +244,9 @@ class Coche {
         this.anno = anno;
         this.kilometraje = kilometraje;
         this.repro = repro;
+    }
+    static crearCoche(matricula:string, marca:string,modelo:string, anno:number,kilometraje:number,repro:boolean){
+        return new Coche(matricula,marca,modelo,anno,kilometraje,repro);
     }
     conducir(){
         if (this.kilometraje >= 200000) {
@@ -263,7 +283,7 @@ class CocheElectrico extends Coche{
    set setMarca(marca:string){
     this.marca=marca;
    }
-   static suma(a:number,b:number){a+b}
+   static suma(a:number,b:number){return a+b}
    
    override toString(): void {
        
@@ -271,3 +291,86 @@ class CocheElectrico extends Coche{
         
     
 }
+console.log();
+
+let e = CocheElectrico.suma(5,3);
+console.log(CocheElectrico.suma(1,4));
+let coche1 = Coche.crearCoche("12345F","audi","a3",2004,317000,true)
+
+coche1.toString()
+console.log(col2.saludo());
+u1.esMayorEdad(u1.edad)
+
+//clases abtractas y demas 
+interface Ianimal {
+    nombre:string
+    edad:number
+
+}
+abstract class Animal implements Ianimal {
+
+    constructor(public nombre:string, public edad:number, public raza:string){
+
+    }
+    toString(){
+     console.log
+     (`su nombre es: ${this.nombre} , su edad es: ${this.edad} y su raza: ${this.raza}`);
+        
+    }
+
+}
+class  Perro extends Animal{
+    constructor(nombre:string,edad:number, raza:string, public ladrido:string ){
+        super(nombre,edad,raza)
+
+    }
+    override toString(): void {
+      super.toString();console.log("es un perro y  su ladrido es "+this.ladrido);
+      
+      
+         
+    
+    }
+   
+    
+}
+class  Gato extends Animal{
+    constructor(nombre:string,edad:number, raza:string, public mauyo:string ){
+        super(nombre,edad,raza)
+
+    }
+     override toString(): void {
+       super.toString();
+       console.log("es un perro y  su ladrido es "+this.mauyo);
+    }
+    
+    
+}
+class  Coches{
+    constructor(public nombre:string){
+       
+
+    }
+     toString() {
+      console.log("nombre: "+this.nombre);
+      
+      
+      
+         
+    
+    }
+    
+}
+/**
+ * let a1 = new Animal("paco",23,"f")
+
+ */
+
+let ga1 = new Gato("garfield",12,"siames","miaaauu");
+
+let pr1 = new Perro("scoby",15,"chucho","guau guau");
+
+
+pr1.toString()
+let arrayAnimales:Animal[] = [pr1,ga1]
+console.log(arrayAnimales);
