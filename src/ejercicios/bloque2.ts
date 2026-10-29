@@ -190,9 +190,11 @@ console.log(estado);
 interface Usuario {
     readonly id:number, //no se puede modificar
     nombre:string,
-    email:Gmail
+    email:Gmail,
+    edad:number,
+    esMayorEdad?:(edad:number,nombre:string)=>void
 }
-let u1:Usuario = {id:1,nombre:"fernando",email:"javier@gmail.com"}
+let u1:Usuario = {id:1,nombre:"fernando",email:"javier@gmail.com",edad:16}
 //no se puede hacer ya que la propiedad es readOnly --> u1.id = 1
 
 type Cargo = "Informatico" | "Administrador" | "Colegiado";
@@ -207,6 +209,66 @@ interface Empleado extends Usuario{
     resenna:Resenna
 }
 // al eredar de usuario nos da error porque tenemos que tener los complementos del usuario --> let e1:Empleado = {idEmpleado:1,cargo:"Informatico"}
-let e1:Empleado = {nombre:"alberto",email:"albertocu@gmail.com",id:3,idEmpleado:1,cargo:"Informatico",resenna:1}
-console.log(e1);
+let e1:Empleado = {nombre:"alberto",email:"albertocu@gmail.com",id:3,idEmpleado:1,cargo:"Informatico",resenna:1,edad:16,esMayorEdad:()=>{console.log(`${e1.edad>=18?'es mayor de edad': 'es menor de edad'}`)}}
+console.log(e1.esMayorEdad);
 
+class Coche {
+    matricula:string;
+    marca:string;
+    modelo:string;
+    anno:number;
+    kilometraje:number;
+    repro:boolean;
+
+    constructor( matricula:string, marca:string,modelo:string, anno:number,kilometraje:number,repro:boolean) {
+        this.matricula = matricula;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.anno = anno;
+        this.kilometraje = kilometraje;
+        this.repro = repro;
+    }
+    conducir(){
+        if (this.kilometraje >= 200000) {
+            console.log("lo ha dado todo");
+            
+            
+        }else{
+            console.log("toda via puede servir");
+            
+        }
+    }
+    /**
+     * el toString() no se puede separar por comas 
+     */
+    toString(){
+        console.log(`mi coche es un ${this.marca+" - "+ this.modelo+" con matricula "+this.matricula+" del "+this.anno+" con "+this.kilometraje+" km  repro: "+this.repro}`);
+        
+    }
+}
+let c1:Coche = new Coche("1234K","seat","toledo",1999,256000,true);
+//manera fea de mostrar
+console.log(`el año del ${c1.marca} es ${c1.anno}`);
+//manera ordenada de mostrar
+console.log(c1);
+c1.conducir();
+class CocheElectrico extends Coche{
+
+    constructor(matricula:string, marca:string,modelo:string, anno:number,kilometraje:number,repro:boolean){
+    super(matricula,marca,modelo,anno,kilometraje,repro)
+   }
+   
+   get getMarca(){
+    return this.marca  
+   }
+   set setMarca(marca:string){
+    this.marca=marca;
+   }
+   static suma(a:number,b:number){a+b}
+   
+   override toString(): void {
+       
+   }
+        
+    
+}
