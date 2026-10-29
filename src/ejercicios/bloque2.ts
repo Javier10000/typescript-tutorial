@@ -253,7 +253,6 @@ console.log(`el año del ${c1.marca} es ${c1.anno}`);
 console.log(c1);
 c1.conducir();
 class CocheElectrico extends Coche{
-
     constructor(matricula:string, marca:string,modelo:string, anno:number,kilometraje:number,repro:boolean){
     super(matricula,marca,modelo,anno,kilometraje,repro)
    }
