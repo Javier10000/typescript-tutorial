@@ -364,7 +364,6 @@ class  Coches{
 }
 /**
  * let a1 = new Animal("paco",23,"f")
-
  */
 
 let ga1 = new Gato("garfield",12,"siames","miaaauu");
