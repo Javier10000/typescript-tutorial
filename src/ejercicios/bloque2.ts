@@ -373,3 +373,9 @@ let pr1 = new Perro("scoby",15,"chucho","guau guau");
 pr1.toString()
 let arrayAnimales:Animal[] = [pr1,ga1]
 console.log(arrayAnimales);
+
+interface coche {
+    numBastidor:string;
+    matricula:string;
+    
+}
