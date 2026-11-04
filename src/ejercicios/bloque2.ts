@@ -1,3 +1,4 @@
+import { stringify } from "querystring";
 import { Interface } from "readline";
 
 // Creamos objetos
@@ -379,3 +380,35 @@ interface coche {
     matricula:string;
     
 }
+interface IOcoche {
+    marca:string;
+    modelo:string;
+    color:string;
+    matricula:string;
+}
+class Cohes implements IOcoche{
+    marca: string; 
+    color: string;
+    modelo: string;
+    matricula:string;
+    
+    private bastidor:string;
+    protected propietario?:string;
+
+    constructor(marca:string,modelo:string,matricula:string,color:string,bastidor:string,propietario?:string){
+        this.bastidor=bastidor;
+        this.propietario = propietario;
+        this.color = color;
+        this.matricula = matricula
+        this.marca = marca;
+        this.modelo = modelo;
+    }
+    arrancar(){return console.log("el ",this.modelo," ",this.marca, " con el color ", this.color ," y con matricula ", this.matricula);
+    }
+}
+//para poner opcional un atributo de la clase se tiene que poner la interrogacion en el atributo y en el constructor 
+let c11 = new Cohes("Audi","a3","1234ABC","rojo","qrr1fssf345");
+console.log(c11);
+c11.arrancar
+
+
