@@ -4,7 +4,7 @@
  * - Existen dos tipos especificos de productos
  *      - Alimento: que ademas tiene fecha de caducidad
  *      - Electronica: que adems tiene una garantia (expresada en años)
- * - Cada tipo de producto debera implementar su propia Funcionalidad que muestre todos sus detalles de forma clara y legible
+ * - Cada t ipo de producto debera implementar su propia Funcionalidad que muestre todos sus detalles de forma clara y legible
  */
 
 abstract class Producto {
