@@ -12,7 +12,7 @@
  * - Una vez que una tarea se crea, su titulo no debe poder modificarse 
  */
 type Estado = "Pendiente" | "EnProgreso" | "Completada"
-class Tarea {
+class Tarea2 {
    readonly titulo: string;
     descripcion: string;
     estado: Estado;
@@ -27,25 +27,25 @@ class Tarea {
 }
 
 class GestorTareas {
-    private tareas: Tarea[] = [];
-    anniadirTareas(arrayTarea: Tarea[]): void {
+    private tareas: Tarea2[] = [];
+    anniadirTareas(arrayTarea: Tarea2[]): void {
         this.tareas.push(...arrayTarea)
     }
     TareaCompletada(titulo:string){
-       let tareaCompletada =  this.tareas.find((t:Tarea)=> (t.titulo===titulo));
+       let tareaCompletada =  this.tareas.find((t:Tarea2)=> (t.titulo===titulo));
        if (tareaCompletada) {
             tareaCompletada.estado = "Completada"
 
         
        }
     }
-    listarPendientes():Tarea[]{
-        let pendientes  = this.tareas.filter((t:Tarea)=>(t.estado == "Pendiente"))
+    listarPendientes():Tarea2[]{
+        let pendientes  = this.tareas.filter((t:Tarea2)=>(t.estado == "Pendiente"))
         return pendientes
     }
 }
-let t1 = new Tarea("limpieza", "esto trata de una limpieza al ordenador ", "EnProgreso");
-let t2 = new Tarea("enseñanza", "esto trata de una enseñanza ", "Pendiente")
+let t1 = new Tarea2("limpieza", "esto trata de una limpieza al ordenador ", "EnProgreso");
+let t2 = new Tarea2("enseñanza", "esto trata de una enseñanza ", "Pendiente")
 
 let gestor: GestorTareas = new GestorTareas()
 

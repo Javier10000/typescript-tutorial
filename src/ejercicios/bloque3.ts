@@ -31,7 +31,7 @@ function esperar(ms: number) {
 
 console.log("holaMundo");
 async function getDetos(): Promise<string> {
-    const URL_POST = "https://jsonplaceholder.typicode.com/posts/1";
+    const URL_POST = "https://hp-api.onrender.com/api/spells";
     let respuesta: Response = await fetch(URL_POST)
     let data = (await respuesta.json() as string); 
     return data
@@ -79,12 +79,13 @@ async function getPostArray(): Promise<Post[]> {
     let data = (await respuesta.json() as Post[]); 
     return data
 }
-/**
- * getPostArray().then((datos:Post[])=>{console.log(datos)}).catch((e:Error)=>{console.log(e.message)});
- */
+
+ getPostArray().then((datos:Post[])=>{console.log(datos)}).catch((e:Error)=>{console.log(e.message)});
+ 
  
 posts = await getPostArray();
 console.log("objeto enetero ",posts[0]);
 console.log("titulo "+posts[0].title);
+
 
 console.log("longitud "+posts.length);
