@@ -285,18 +285,6 @@ conRecu.forEach(([nombre, nota, recuperacion]) => {
   const definitiva = recuperacion ?? nota;
   console.log(`${nombre}: ordinaria ${nota}, definitiva ${definitiva}`);
 });
-
-
-
-
-
-
-    
-
-
-
-
-
 console.log("------------------------------------------------------------------------");
 let jose:string = "jajaja"
 let edad:number = 12

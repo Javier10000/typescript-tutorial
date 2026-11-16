@@ -1,6 +1,4 @@
 import { Usuario } from "./14-modulos/modelos/usuario.model";
-
-
 type Geo = {
     lat:string;
     lng:string;
@@ -22,7 +20,6 @@ type Address = {
     zipcode:string;
     geo:Geo;
 }
-
 type Company = {
     name:string
     catchPharase:string
