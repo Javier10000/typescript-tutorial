@@ -43,17 +43,28 @@ const carrito: LineaCarrito[] = [
 ];
 
 // ✍️ Tu código aquí
-function detalleCarrito(lineas:LineaCarrito[], productos:Producto[]){
-    for(const linea of lineas){
-        const producto = productos.find((p)=>p.sku == linea.sku)
-        console.log(producto);
-        
-        
+function detalleCarrito(lineas: LineaCarrito[], productos: Producto[]) {
+  let baseImponente
+  for (const linea of lineas) {
+
+    const producto = productos.find((p) => (p.sku == linea.sku))
+
+    if (producto) {
+      baseImponente = productos.reduce((acc: number, p: Producto) => acc + p.precio, 0)
+      console.log(linea.unidades, " x ", producto.nombre, producto.precio, "€");
+
+
+
     }
+  }
+
+  console.log("base inponible: "+ baseImponente);
+
+
 
 }
-console.log("fdsf");
+detalleCarrito(carrito, catalogo);
 
 
 
-export {};
+export { };

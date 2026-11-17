@@ -1,4 +1,4 @@
-import { Usuario } from "./14-modulos/modelos/usuario.model";
+
 type Geo = {
     lat:string;
     lng:string;
