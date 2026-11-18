@@ -52,9 +52,6 @@ function detalleCarrito(lineas: LineaCarrito[], productos: Producto[]) {
     if (producto) {
       baseImponente = productos.reduce((acc: number, p: Producto) => acc + p.precio, 0)
       console.log(linea.unidades, " x ", producto.nombre, producto.precio, "€");
-
-
-
     }
   }
 
